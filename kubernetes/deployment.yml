@@ -1,0 +1,28 @@
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudpose-deployment
+  namespace: cloudpose
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cloudpose
+  template:
+    metadata:
+      labels:
+        app: cloudpose
+    spec:
+      containers:
+        - name: cloudpose-container
+          image: cloudpose-api:latest
+          ports:
+            - containerPort: 60001
+          resources:
+            requests:
+              cpu: "0.5"
+              memory: "512Mi"
+            limits:
+              cpu: "0.5"
+              memory: "512Mi"
